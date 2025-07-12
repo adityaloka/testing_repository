@@ -8,7 +8,7 @@ pipeline{
 					  https://github.com/vedantsharmascaler/testing_repo.git'
 		    
 		  }  
-		  
+	        } 
 		stage{
 		 steps{
 		   sh 'chmod +x script.sh'
