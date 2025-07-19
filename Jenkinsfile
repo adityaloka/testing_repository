@@ -1,39 +1,28 @@
 pipeline {
-    agent any
-
-    stages {
-        stage("Clone Repo") {
+agent any
+      stages {
+         stage('Build') {
             steps {
-                echo "This is the clone stage"
-                git branch: 'jenkins', url: 'https://github.com/vedantsharmascaler/testing_repo.git' 
+              echo 'Building project...'
+                }
             }
-        }
-
-        stage("Run Script") {
+         stage('Test') {
             steps {
-                sh 'chmod +x script.sh'
-                sh './script.sh'
-            }
+                 echo 'Running tests...'
+                 }
+              }
         }
-  
-        stage ("Build"){
-           steps{
-              echo "This is the Build Stage"
-                 }
-           }
-
-        stage ("Test"){
-           steps{
-              echo "This is the Test Stage"
-                 }
-           }
-
-        stage ("Deploy"){
-           steps{
-              echo "This is the Deploy Stage"
-                 }
-           }
-       
-     }
-
+   post {
+    success {
+       emailext subject: "Jenkins Job Successful: ${env.JOB_NAME}",
+            body: "The job ${env.JOB_NAME} (#${env.BUILD_NUMBER}) has completed successfully.\nCheck it here:
+    ${env.BUILD_URL}",
+    to: 'adityalokapalli309@gmail.com'
+         }
+    failure {
+        emailext subject: "Jenkins Job Failed: ${env.JOB_NAME}",
+        body: "The job ${env.JOB_NAME} (#${env.BUILD_NUMBER}) has failed.\nCheck logs: ${env.BUILD_URL}",
+        to: 'adityalokapalli309@gmail.com'
+        }
+  }
 }
