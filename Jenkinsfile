@@ -15,5 +15,25 @@ pipeline {
                 sh './script.sh'
             }
         }
-    }
+  
+        stage ("Build"){
+           steps{
+              echo "This is the Build Stage"
+                 }
+           }
+
+        stage ("Test"){
+           steps{
+              echo "This is the Test Stage"
+                 }
+           }
+
+        stage ("Deploy"){
+           steps{
+              echo "This is the Deploy Stage"
+                 }
+           }
+       
+     }
+
 }
